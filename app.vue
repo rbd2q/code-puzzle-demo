@@ -1,6 +1,6 @@
 <template lang="pug">
 div(class="w-screen h-screen")
-  div(class="h-2/3 overflow-scroll")
+  div(class="h-2/3 overflow-scroll bg-[#F3F4F6]")
     //component(
     //  :is="editorComponent",
     //  :model-value="updatedCode",
@@ -11,8 +11,8 @@ div(class="w-screen h-screen")
     //div(class="flex flex-col")
     //  code(language="javascript" ) {{ updatedCode }}
 
-    div(v-for="line in updatedCodeArray" class="flex items-center")
-      span(class="mr-8") {{ line.lineNumber }}
+    div(v-for="line in updatedCodeArray" class="flex items-center mb-1")
+      span(class="w-[20px] mr-4") {{ line.lineNumber }}
       pre(class="flex items-start")
         code(v-html="line.lineCode" class="flex items-center")
       //div {{ line.lineCode }}
@@ -99,13 +99,14 @@ const clickPuzzle = (puzzleContent: string) => {
     button.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
     usedCodeBlocks.value[codeSlotId] = puzzleContent;
     localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value))
+    activeSlotId.value = null;
   }
 }
 
 const checkCode = () => {}
 
 onMounted(async () => {
-  updatedCode.value = initialCode.value.replaceAll('*SLOT_FOR_CODE*', `<button class="puzzle-slot flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md" ></button>`);
+  updatedCode.value = initialCode.value.replaceAll('*SLOT_FOR_CODE*', `<button class="puzzle-slot bg-white flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md" ></button>`);
   updatedCodeArray.value = getReviewContent();
 
   nextTick(() => {
