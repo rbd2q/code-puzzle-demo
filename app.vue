@@ -60,7 +60,7 @@ const puzzleSlot = ref();
 const activeSlotId = ref();
 
 const codeBlocksToSelect = ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0']
-const usedCodeBlocks = ref({})
+const usedCodeBlocks = ref<Record<number, string | null>>({})
 
 
 const getReviewContent = () => {
@@ -120,15 +120,13 @@ onMounted(async () => {
   nextTick(() => {
     const slots = document.getElementsByClassName('puzzle-slot');
     const slotsArray = [...slots];
-    const itemsInStorage = JSON.parse(localStorage.getItem('answers'));
+    const itemsInStorage = JSON.parse(localStorage.getItem('answers') ?? '');
 
     if (slotsArray.length) {
       slotsArray.map((slot, index) => {
         slot.id = `puzzle-slot-${index + 1}`;
         slot.addEventListener('click', () => {
           activeSlotId.value = slot.id;
-          slot.classList.remove('!bg-[#EBF2FB]', '!border-[#BECFE2]');
-          slot.classList.add('!bg-[#FFF6ED]');
         })
 
         if (itemsInStorage && itemsInStorage[index + 1]) {
