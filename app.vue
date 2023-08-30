@@ -156,4 +156,23 @@ onMounted(async () => {
     }
   })
 })
+
+
+watch(() => activeSlotId.value, () => {
+  const slots = document.getElementsByClassName('puzzle-slot');
+  const slotsArray = [...slots];
+  if (slotsArray.length) {
+    slotsArray.map((slot) => {
+      if (slot.id === activeSlotId.value) {
+        slot.classList.remove('!bg-[#EBF2FB]', '!border-[#BECFE2]');
+        slot.classList.add('!bg-[#FFF6ED]');
+      } else {
+        slot.classList.remove('!bg-[#FFF6ED]');
+        if (slot.innerHTML) {
+          slot.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
+        }
+      }
+    })
+    }
+})
 </script>
