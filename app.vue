@@ -1,25 +1,16 @@
 <template lang="pug">
 div(class="w-screen h-screen")
   div(class="h-2/3 overflow-scroll bg-[#F3F4F6]")
-    //component(
-    //  :is="editorComponent",
-    //  :model-value="updatedCode",
-    //  :options="editorOptions.diffOptions",
-    //  :run="checkCode"
-    //)
-    //div(v-html="updatedCode")
-    //div(class="flex flex-col")
-    //  code(language="javascript" ) {{ updatedCode }}
-
     div(v-for="line in updatedCodeArray" class="flex items-center mb-1")
       span(class="w-[20px] mr-4") {{ line.lineNumber }}
       pre(class="flex items-start")
         code(v-html="line.lineCode" class="flex items-center")
-      //div {{ line.lineCode }}
   div(class="h-1/3 border-t border-4 border-red flex flex-col items-center p-6")
-    span(class="text-2xl font-bold mb-12") Select code block
-    div(class="flex")
+    span(class="text-2xl font-bold mb-12") Выберите код
+    div(class="flex flex-wrap justify-center")
       button(v-for="block in codeBlocksToSelect" :disabled="Object.values(usedCodeBlocks).includes(block)" key="block" @click="clickPuzzle(block)" class="bg-[#FFF6ED] disabled:bg-[#F6F4F1] border border-[#EBE0CC] disabled:border-[#EBE0CC] disabled:opacity-50 w-fit whitespace-nowrap rounded-md p-2 m-2") {{ block }}
+    div(class="w-full mt-8")
+      button(:disabled="Object.keys(usedCodeBlocks).length !== codeBlocksToSelect.length" class="w-full text-white py-2 disabled:bg-[#F3F4F6] disabled:text-[#CFCFCF] bg-[#E61739]" @click="checkCode") Отправить
 </template>
 
 <script setup lang="ts">
@@ -52,7 +43,6 @@ const initialCode = ref(`export const formatDurationWithLabels = (totalSeconds: 
 
 const updatedCode = ref('');
 const updatedCodeArray = ref();
-const puzzleSlot = ref();
 const activeSlotId = ref();
 
 const codeBlocksToSelect = ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0']
@@ -90,7 +80,7 @@ const clickPuzzle = (puzzleContent: string) => {
       slotContentDeleteButton.id = `puzzle-slot-content-delete-button-${codeSlotId}`
       slotContentDeleteButton.addEventListener('click', () => {
         button.innerHTML = '';
-        usedCodeBlocks.value[codeSlotId] = null;
+        delete usedCodeBlocks.value[codeSlotId];
         localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value))
       })
     }
@@ -103,7 +93,9 @@ const clickPuzzle = (puzzleContent: string) => {
   }
 }
 
-const checkCode = () => {}
+const checkCode = () => {
+  console.log('check code', usedCodeBlocks.value);
+}
 
 onMounted(async () => {
   updatedCode.value = initialCode.value.replaceAll('*SLOT_FOR_CODE*', `<button class="puzzle-slot bg-white flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md" ></button>`);
@@ -112,7 +104,7 @@ onMounted(async () => {
   nextTick(() => {
     const slots = document.getElementsByClassName('puzzle-slot');
     const slotsArray = [...slots];
-    const itemsInStorage = JSON.parse(localStorage.getItem('answers') ?? '');
+    const itemsInStorage = JSON.parse(localStorage.getItem('answers')!)
 
     if (slotsArray.length) {
       slotsArray.map((slot, index) => {
@@ -137,7 +129,7 @@ onMounted(async () => {
             slotContentDeleteButton.id = `puzzle-slot-content-delete-button-${index + 1}`
             slotContentDeleteButton.addEventListener('click', () => {
               slot.innerHTML = '';
-              usedCodeBlocks.value[index + 1] = null;
+              delete usedCodeBlocks.value[index + 1];
               localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value))
             })
           }
