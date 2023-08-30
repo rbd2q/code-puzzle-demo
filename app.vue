@@ -23,10 +23,6 @@ div(class="w-screen h-screen")
 </template>
 
 <script setup lang="ts">
-// import "@unocss/reset/tailwind.css";
-
-const editorComponent = shallowRef<null | any>(null);
-
 const initialCode = ref(`export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
   if (!*SLOT_FOR_CODE*) {
     return '0';
@@ -81,7 +77,6 @@ const clickPuzzle = (puzzleContent: string) => {
   if (button) {
     const codeSlotId = activeSlotId.value.charAt(activeSlotId.value.length - 1) ?? 1;
 
-    //start
     button.innerHTML = '<div class="flex" ><span id="puzzle-slot-content"></span><button id="puzzle-slot-delete-button" class="text-[#85A2C5] px-2 ml-2 border-l border-[#BECFE2]">&#215;</button</div>'
 
     const slotContentBlock = document.getElementById('puzzle-slot-content');
@@ -99,8 +94,6 @@ const clickPuzzle = (puzzleContent: string) => {
         localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value))
       })
     }
-    //end
-
 
     button.classList.remove('!bg-[#FFF6ED]');
     button.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
@@ -109,9 +102,7 @@ const clickPuzzle = (puzzleContent: string) => {
   }
 }
 
-const checkCode = () => {
-  console.log('checked');
-}
+const checkCode = () => {}
 
 onMounted(async () => {
   updatedCode.value = initialCode.value.replaceAll('*SLOT_FOR_CODE*', `<button class="puzzle-slot flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md" ></button>`);
