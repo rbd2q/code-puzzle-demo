@@ -1,21 +1,24 @@
 <template lang="pug">
 div(class="w-screen h-screen")
-  div(class="h-2/3 overflow-scroll bg-[#F3F4F6]")
+  div(class="h-2/3 py-3 overflow-scroll bg-[#F3F4F6]")
     div(v-for="line in updatedCodeArray" class="flex items-center mb-1")
-      span(class="w-[20px] mr-4") {{ line.lineNumber }}
+      span(class="w-[20px] mx-4") {{ line.lineNumber }}
       pre(class="flex items-start")
         code(v-html="line.lineCode" class="flex items-center")
   div(class="h-1/3 border-t border-4 border-red flex flex-col items-center p-6")
     span(class="text-2xl font-bold mb-12") Выберите код
     div(class="flex flex-wrap justify-center")
       button(v-for="block in codeBlocksToSelect" :disabled="Object.values(usedCodeBlocks).includes(block)" key="block" @click="clickPuzzle(block)" class="bg-[#FFF6ED] disabled:bg-[#F6F4F1] border border-[#EBE0CC] disabled:border-[#EBE0CC] disabled:opacity-50 w-fit whitespace-nowrap rounded-md p-2 m-2") {{ block }}
-    div(class="w-full mt-8")
-      button(:disabled="Object.keys(usedCodeBlocks).length !== codeBlocksToSelect.length" class="w-full text-white py-2 disabled:bg-[#F3F4F6] disabled:text-[#CFCFCF] bg-[#E61739]" @click="checkCode") Отправить
+    div(class="w-full flex justify-center mt-8")
+      button(:disabled="Object.keys(usedCodeBlocks).length !== codeBlocksToSelect.length" class="w-full max-w-2xl text-white py-2 disabled:bg-[#F3F4F6] disabled:text-[#CFCFCF] bg-[#E61739]" @click="checkCode") Отправить
 </template>
 
 <script setup lang="ts">
+import hljs from 'highlight.js/lib/core';
+import 'highlight.js/styles/atom-one-light.css';
+
 const initialCode = ref(`export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
-  if (!*SLOT_FOR_CODE*) {
+  if (!SLOT_FOR_CODE_BLOCK) {
     return '0';
   }
 
@@ -27,35 +30,39 @@ const initialCode = ref(`export const formatDurationWithLabels = (totalSeconds: 
   const hours = Math.floor(totalSeconds / 3600);
   totalSeconds %= 3600;
   const minutes = Math.floor(totalSeconds / 60);
-  const seconds = *SLOT_FOR_CODE*;
+  const seconds = SLOT_FOR_CODE_BLOCK;
 
   const durationParts: string[] = [];
   if (hours > 0) {
-    durationParts.push(*SLOT_FOR_CODE*);
+    durationParts.push(SLOT_FOR_CODE_BLOCK);
   }
   if (hours > 0 || minutes > 0) {
-    durationParts.push(*SLOT_FOR_CODE*);
+    durationParts.push(SLOT_FOR_CODE_BLOCK);
   }
-  durationParts.push(*SLOT_FOR_CODE*);
+  durationParts.push(SLOT_FOR_CODE_BLOCK);
 
-  return durationParts.join(' ');
+  SLOT_FOR_CODE_BLOCK SLOT_FOR_CODE_BLOCK;
 };`)
 
-const updatedCode = ref('');
 const updatedCodeArray = ref();
 const activeSlotId = ref();
 
-const codeBlocksToSelect = ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0']
+const codeBlocksToSelect = ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0', 'return', 'durationParts.join(\' \')']
 const usedCodeBlocks = ref<Record<number, string | null>>({})
 
-
 const getReviewContent = () => {
-  return updatedCode.value?.split('\n').map((item, index) => {
+  return initialCode.value?.split('\n').map((item, index) => {
     const lineNumber = index + 1;
+
+    const highlightedCode = hljs.highlight(
+        item,
+        { language: 'ts' }
+    ).value;
+    const codeToDisplay = highlightedCode.replaceAll('SLOT_FOR_CODE_BLOCK', `<button class="puzzle-slot bg-white text-black flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md mx-1" ></button>`);
 
     return {
       lineNumber,
-      lineCode: item,
+      lineCode: codeToDisplay,
     };
   });
 };
@@ -98,7 +105,6 @@ const checkCode = () => {
 }
 
 onMounted(async () => {
-  updatedCode.value = initialCode.value.replaceAll('*SLOT_FOR_CODE*', `<button class="puzzle-slot bg-white flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md" ></button>`);
   updatedCodeArray.value = getReviewContent();
 
   nextTick(() => {

@@ -9,8 +9,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "highlight.js": "^11.8.0",
     "monaco-editor": "^0.39.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "vue-markdown-highlight": "^1.0.5"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
