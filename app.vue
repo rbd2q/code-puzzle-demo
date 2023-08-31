@@ -1,6 +1,6 @@
 <template lang="pug">
 div(class="w-screen h-screen")
-  div(class="h-2/3 py-3 overflow-scroll bg-[#F3F4F6]")
+  div(class="h-2/3 py-3 overflow-scroll bg-[#F3F4F6]" :class="{ '!bg-[#FFF2F2]': codeState === 'wrong', '!bg-[#EEF8EA]': codeState === 'correct' }")
     div(v-for="line in updatedCodeArray" class="flex items-center mb-1")
       span(class="w-[20px] mx-4") {{ line.lineNumber }}
       pre(class="flex items-start")
@@ -16,6 +16,35 @@ div(class="w-screen h-screen")
 <script setup lang="ts">
 import hljs from 'highlight.js/lib/core';
 import 'highlight.js/styles/atom-one-light.css';
+
+const codeState = ref<'correct'| 'wrong' | 'not_executed'>('not_executed')
+
+const correctCode = ref(`export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
+  if (!first code) {
+    return '0';
+  }
+
+  totalSeconds = Math.floor(totalSeconds);
+  if (totalSeconds < 0) {
+    totalSeconds = 0;
+  }
+
+  const hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = second code;
+
+  const durationParts: string[] = [];
+  if (hours > 0) {
+    durationParts.push(third code);
+  }
+  if (hours > 0 || minutes > 0) {
+    durationParts.push(Math.floor(totalSeconds / 3600));
+  }
+  durationParts.push(hours > 0 || minutes > 0);
+
+  return durationParts.join(\' \');
+};`)
 
 const initialCode = ref(`export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
   if (!SLOT_FOR_CODE_BLOCK) {
@@ -74,7 +103,7 @@ const clickPuzzle = (puzzleContent: string) => {
   if (button) {
     const codeSlotId = activeSlotId.value.charAt(activeSlotId.value.length - 1) ?? 1;
 
-    button.innerHTML = '<div class="flex" ><span id="puzzle-slot-content"></span><button id="puzzle-slot-delete-button" class="text-[#85A2C5] px-2 ml-2 border-l border-[#BECFE2]">&#215;</button</div>'
+    button.innerHTML = '<span id="puzzle-slot-content"></span><button id="puzzle-slot-delete-button" class="text-[#85A2C5] px-2 ml-2 border-l border-[#BECFE2]">&#215;</button>'
 
     const slotContentBlock = document.getElementById('puzzle-slot-content');
     if (slotContentBlock) {
@@ -101,7 +130,18 @@ const clickPuzzle = (puzzleContent: string) => {
 }
 
 const checkCode = () => {
-  console.log('check code', usedCodeBlocks.value);
+  let finalCode = initialCode.value;
+  const slots = document.getElementsByClassName('puzzle-slot');
+  const slotsArray = [...slots];
+
+  slotsArray.map((item) => {
+    finalCode = finalCode.replace('SLOT_FOR_CODE_BLOCK', item.children[0].innerText)
+  })
+  if (finalCode === correctCode.value) {
+    codeState.value = 'correct'
+  } else {
+    codeState.value = 'wrong'
+  }
 }
 
 onMounted(async () => {
@@ -121,7 +161,7 @@ onMounted(async () => {
 
         if (itemsInStorage && itemsInStorage[index + 1]) {
           usedCodeBlocks.value = itemsInStorage;
-          slot.innerHTML = '<div class="flex" ><span id="puzzle-slot-content"></span><button id="puzzle-slot-delete-button" class="text-[#85A2C5] px-2 ml-2 border-l border-[#BECFE2]">&#215;</button</div>';
+          slot.innerHTML = '<span id="puzzle-slot-content"></span><button id="puzzle-slot-delete-button" class="text-[#85A2C5] px-2 ml-2 border-l border-[#BECFE2]">&#215;</button>';
           const slotContentBlock = document.getElementById('puzzle-slot-content');
           if (slotContentBlock) {
             slotContentBlock.id = `puzzle-slot-content-${index + 1}`;
