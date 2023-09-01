@@ -9,8 +9,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
     "highlight.js": "^11.8.0",
     "monaco-editor": "^0.39.0",
+    "pinia": "^2.1.6",
     "pug": "^3.0.2"
   },
   "devDependencies": {

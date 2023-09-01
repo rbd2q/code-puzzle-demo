@@ -1,7 +1,7 @@
 <template lang="pug">
 div(class="w-screen h-screen")
-  PuzzleEditor(:updated-code-array="updatedCodeArray" :code-state="codeState")
-  PuzzleSelectBlock(:code-blocks-to-select="codeBlocksToSelect", :used-code-blocks="usedCodeBlocks" @click-puzzle="clickPuzzle" @check-code="checkCode")
+  PuzzleEditor(v-if="updatedCodeArray" :updated-code-array="updatedCodeArray" :code-state="codeState")
+  PuzzleSelectBlock(v-if="codeBlocksToSelect.length" :code-blocks-to-select="codeBlocksToSelect", :used-code-blocks="usedCodeBlocks" :code-state="codeState" @click-puzzle="clickPuzzle" @check-code="checkCode" @next-task="emit('next-task')")
 </template>
 
 <script setup lang="ts">
@@ -9,72 +9,41 @@ import hljs from 'highlight.js/lib/core';
 import 'highlight.js/styles/atom-one-light.css';
 import PuzzleEditor from "~/src/entities/puzzle-editor/PuzzleEditor.vue";
 import PuzzleSelectBlock from "~/src/entities/puzzle-select-block/PuzzleSelectBlock.vue";
+import type { CodeState, TaskType, SplitCode } from "~/src/shared/types";
 
-const codeState = ref<'correct'| 'wrong' | 'not_executed'>('not_executed');
+interface Props {
+  currentTask: TaskType;
+}
 
-const correctCode = ref(`export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
-  if (!first code) {
-    return '0';
-  }
+const props = withDefaults(defineProps<Props>(), {});
 
-  totalSeconds = Math.floor(totalSeconds);
-  if (totalSeconds < 0) {
-    totalSeconds = 0;
-  }
-
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = second code;
-
-  const durationParts: string[] = [];
-  if (hours > 0) {
-    durationParts.push(third code);
-  }
-  if (hours > 0 || minutes > 0) {
-    durationParts.push(Math.floor(totalSeconds / 3600));
-  }
-  durationParts.push(hours > 0 || minutes > 0);
-
-  return durationParts.join(\' \');
-};`);
-
-const initialCode = ref(`export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
-  if (!SLOT_FOR_CODE_BLOCK) {
-    return '0';
-  }
-
-  totalSeconds = Math.floor(totalSeconds);
-  if (totalSeconds < 0) {
-    totalSeconds = 0;
-  }
-
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = SLOT_FOR_CODE_BLOCK;
-
-  const durationParts: string[] = [];
-  if (hours > 0) {
-    durationParts.push(SLOT_FOR_CODE_BLOCK);
-  }
-  if (hours > 0 || minutes > 0) {
-    durationParts.push(SLOT_FOR_CODE_BLOCK);
-  }
-  durationParts.push(SLOT_FOR_CODE_BLOCK);
-
-  SLOT_FOR_CODE_BLOCK SLOT_FOR_CODE_BLOCK;
-};`);
+const emit = defineEmits<{
+  (event: "next-task"): void;
+}>();
 
 const updatedCodeArray = ref();
 const activeSlotId = ref();
-
-const codeBlocksToSelect = ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0', 'return', 'durationParts.join(\' \')'];
 const usedCodeBlocks = ref<Record<number, string | null>>({});
+const codeState = ref<CodeState>('not_executed');
 
-const getReviewContent = () => {
+const correctCode = computed(() => {
+  return props.currentTask.correct_code;
+});
+
+const initialCode = computed(() => {
+  return props.currentTask.initial_code;
+});
+
+
+const codeBlocksToSelect = computed(() => {
+  return props.currentTask.blocks_to_select;
+})
+
+
+const getReviewContent = (): SplitCode[] => {
   return initialCode.value?.split('\n').map((item, index) => {
     const lineNumber = index + 1;
+    // const newCode = item.replaceAll(' ', '&nbsp;')
 
     const highlightedCode = hljs.highlight(
         item,
@@ -137,7 +106,7 @@ const checkCode = () => {
   }
 }
 
-onMounted(async () => {
+onMounted(() => {
   updatedCodeArray.value = getReviewContent();
 
   nextTick(() => {

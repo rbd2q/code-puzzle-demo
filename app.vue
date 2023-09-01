@@ -1,7 +1,33 @@
 <template lang="pug">
-CodePuzzle
+CodePuzzle(v-if="currentTask" :key="currentTask.id" :current-task="currentTask" @next-task="handleNextTask")
 </template>
 
 <script setup lang="ts">
 import CodePuzzle from "~/src/widgets/code-puzzle/CodePuzzle.vue";
+import { tasksModel } from "~/src/entities/store/tasks/"
+
+const storeTasks = tasksModel.useTasksStore();
+const currentTaskIndex = ref(0)
+
+const tasks = computed(() => {
+  return storeTasks.tasks.item;
+});
+
+const currentTask = computed(() => {
+  if (!tasks.value?.length) {
+    return;
+  }
+  return tasks.value[currentTaskIndex.value];
+});
+
+const handleNextTask = () => {
+  if (tasks.value && currentTaskIndex.value + 1 < tasks.value.length) {
+    currentTaskIndex.value = currentTaskIndex.value + 1;
+    localStorage.removeItem('answers');
+  }
+}
+
+onMounted(() => {
+  storeTasks.getTasks()
+})
 </script>
