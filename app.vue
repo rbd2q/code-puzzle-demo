@@ -3,7 +3,7 @@ div(class="w-screen h-screen")
   div(class="h-2/3 relative rounded-[2px] border border-b-0 border-[#F3F4F6]" :class="{'!border-[#4EAD69]' : codeState === 'correct', '!border-[#E61739]' : codeState === 'wrong',}")
     div(class="absolute -bottom-[11px] flex items-center w-full h-6 text-center bg-transparent")
       div(class="relative -left-[1px] flex flex-grow h-1 rounded-bl-[2px] border-b border-l bg-transparent" :class="{'border-[#4EAD69]' : codeState === 'correct', 'border-[#E61739]' : codeState === 'wrong',}")
-      h2(v-if="codeState === 'correct' || codeState === 'wrong'" class="font-medium px-[9px]") 
+      h2(v-if="codeState === 'correct' || codeState === 'wrong'" class="font-medium px-[9px]")
         span(v-if="codeState === 'correct'" class="text-[#4EAD69]") Круто! Это правильный код
         span(v-if="codeState === 'wrong'" class="text-[#E61739]") Где-то была ошибка
       div(class="relative -right-[1px] flex flex-grow h-1 rounded-br-[2px] border-b border-r bg-transparent" :class="{'border-[#4EAD69]' : codeState === 'correct', 'border-[#E61739]' : codeState === 'wrong',}")
@@ -13,7 +13,7 @@ div(class="w-screen h-screen")
         pre(class="flex items-start")
           code(v-html="line.lineCode" class="flex items-center")
 
-  div(class="h-1/3 border-t border-4 border-red flex flex-col items-center p-6")
+  div(class="h-1/3 border-t border-4 border-red flex flex-col items-center p-6 overflow-scroll")
     span(class="text-2xl font-bold mb-12") Выберите код
     div(class="flex flex-wrap justify-center")
       button(v-for="block in codeBlocksToSelect" :disabled="Object.values(usedCodeBlocks).includes(block)" key="block" @click="clickPuzzle(block)" class="bg-[#FFF6ED] disabled:bg-[#F6F4F1] border border-[#EBE0CC] disabled:border-[#EBE0CC] disabled:opacity-50 w-fit whitespace-nowrap rounded-md p-2 m-2") {{ block }}
