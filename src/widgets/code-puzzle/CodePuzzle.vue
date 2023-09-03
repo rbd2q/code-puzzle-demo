@@ -49,7 +49,7 @@ const getReviewContent = (): SplitCode[] => {
         item,
         { language: 'ts' }
     ).value;
-    const codeToDisplay = highlightedCode.replaceAll('SLOT_FOR_CODE_BLOCK', `<button class="puzzle-slot bg-white text-black flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 py-1 border border-[#E9B087] rounded-md mx-1" ></button>`);
+    const codeToDisplay = highlightedCode.replaceAll('SLOT_FOR_CODE_BLOCK', `<button class="puzzle-slot relative -top-[1px] bg-white text-black flex items-center text-center min-w-[80px] w-fit h-[26px] pl-2 border border-[#E9B087] rounded-md mx-1" ></button>`);
 
     return {
       lineNumber,
