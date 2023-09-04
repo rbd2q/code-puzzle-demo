@@ -43,7 +43,6 @@ const codeBlocksToSelect = computed(() => {
 const getReviewContent = (): SplitCode[] => {
   return initialCode.value?.split('\n').map((item, index) => {
     const lineNumber = index + 1;
-    // const newCode = item.replaceAll(' ', '&nbsp;')
 
     const highlightedCode = hljs.highlight(
         item,
@@ -79,6 +78,7 @@ const clickPuzzle = (puzzleContent: string) => {
       slotContentDeleteButton.addEventListener('click', () => {
         button.innerHTML = '';
         delete usedCodeBlocks.value[codeSlotId];
+        codeState.value = 'not_executed';
         localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value));
       })
     }
@@ -138,6 +138,7 @@ onMounted(() => {
             slotContentDeleteButton.addEventListener('click', () => {
               slot.innerHTML = '';
               delete usedCodeBlocks.value[index + 1];
+              codeState.value = 'not_executed';
               localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value));
             })
           }
