@@ -10,6 +10,20 @@ export const usePuzzle = ({initialCode, correctCode}: {
   const usedCodeBlocks = ref<Record<number, string | null>>({});
   const codeState = ref<CodeState>('not_executed');
 
+  const setActiveStyles = (element: HTMLElement | Element) => {
+    element.classList.remove('!bg-[#EBF2FB]', '!border-[#BECFE2]');
+    element.classList.add('!bg-[#FFF6ED]');
+    if (element.innerHTML) {
+      element.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
+    }
+  }
+
+  const setFilledStyles = (element: HTMLElement | Element) => {
+    element.classList.remove('!bg-[#FFF6ED]');
+    if (element.innerHTML) {
+      element.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
+    }
+  }
 
   const getReviewContent = (): SplitCode[] => {
     return initialCode?.split('\n').map((item, index) => {
@@ -52,8 +66,7 @@ export const usePuzzle = ({initialCode, correctCode}: {
         })
       }
 
-      button.classList.remove('!bg-[#FFF6ED]');
-      button.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
+      setFilledStyles(button)
       usedCodeBlocks.value[codeSlotId] = puzzleContent;
       localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value));
       activeSlotId.value = null;
@@ -116,13 +129,9 @@ export const usePuzzle = ({initialCode, correctCode}: {
     if (slotsArray.value.length) {
       slotsArray.value.map((slot) => {
         if (slot.id === activeSlotId.value) {
-          slot.classList.remove('!bg-[#EBF2FB]', '!border-[#BECFE2]');
-          slot.classList.add('!bg-[#FFF6ED]');
+          setActiveStyles(slot);
         } else {
-          slot.classList.remove('!bg-[#FFF6ED]');
-          if (slot.innerHTML) {
-            slot.classList.add('!bg-[#EBF2FB]', '!border-[#BECFE2]');
-          }
+          setFilledStyles(slot);
         }
       })
     }
