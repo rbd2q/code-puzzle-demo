@@ -25,6 +25,7 @@ const updatedCodeArray = ref();
 const activeSlotId = ref();
 const usedCodeBlocks = ref<Record<number, string | null>>({});
 const codeState = ref<CodeState>('not_executed');
+const slotsArray = ref<Element[]>([]);
 
 const correctCode = computed(() => {
   return props.currentTask.correct_code;
@@ -78,7 +79,6 @@ const clickPuzzle = (puzzleContent: string) => {
       slotContentDeleteButton.addEventListener('click', () => {
         button.innerHTML = '';
         delete usedCodeBlocks.value[codeSlotId];
-        codeState.value = 'not_executed';
         localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value));
       })
     }
@@ -93,10 +93,8 @@ const clickPuzzle = (puzzleContent: string) => {
 
 const checkCode = () => {
   let finalCode = initialCode.value;
-  const slots = document.getElementsByClassName('puzzle-slot');
-  const slotsArray = [...slots];
 
-  slotsArray.map((item) => {
+  slotsArray.value.map((item) => {
     finalCode = finalCode.replace('SLOT_FOR_CODE_BLOCK', item.children[0].innerText);
   })
   if (finalCode === correctCode.value) {
@@ -111,11 +109,11 @@ onMounted(() => {
 
   nextTick(() => {
     const slots = document.getElementsByClassName('puzzle-slot');
-    const slotsArray = [...slots];
+    slotsArray.value = [...slots];
     const itemsInStorage = JSON.parse(localStorage.getItem('answers')!);
 
-    if (slotsArray.length) {
-      slotsArray.map((slot, index) => {
+    if (slotsArray.value.length) {
+      slotsArray.value.map((slot, index) => {
         slot.id = `puzzle-slot-${index + 1}`;
         slot.addEventListener('click', () => {
           activeSlotId.value = slot.id;
@@ -138,7 +136,6 @@ onMounted(() => {
             slotContentDeleteButton.addEventListener('click', () => {
               slot.innerHTML = '';
               delete usedCodeBlocks.value[index + 1];
-              codeState.value = 'not_executed';
               localStorage.setItem('answers', JSON.stringify(usedCodeBlocks.value));
             })
           }
@@ -150,10 +147,8 @@ onMounted(() => {
 
 
 watch(() => activeSlotId.value, () => {
-  const slots = document.getElementsByClassName('puzzle-slot');
-  const slotsArray = [...slots];
-  if (slotsArray.length) {
-    slotsArray.map((slot) => {
+  if (slotsArray.value.length) {
+    slotsArray.value.map((slot) => {
       if (slot.id === activeSlotId.value) {
         slot.classList.remove('!bg-[#EBF2FB]', '!border-[#BECFE2]');
         slot.classList.add('!bg-[#FFF6ED]');
@@ -164,6 +159,20 @@ watch(() => activeSlotId.value, () => {
         }
       }
     })
+  }
+})
+
+watch(() => codeState.value, (val) => {
+  if (val !== 'not_executed') {
+    if (slotsArray.value.length) {
+      slotsArray.value.map((slot, index) => {
+        slot.disabled = true;
+        const slotContentDeleteButton = document.getElementById(`puzzle-slot-content-delete-button-${index + 1}`);
+        if (slotContentDeleteButton) {
+          slotContentDeleteButton.disabled = true;
+        }
+      })
+    }
   }
 })
 </script>

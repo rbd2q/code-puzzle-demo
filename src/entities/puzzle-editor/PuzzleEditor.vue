@@ -19,7 +19,7 @@
 div(class="h-2/3 relative rounded-[2px] border border-b-0 border-[#F3F4F6]" :class="{'!border-[#4EAD69]' : codeState === 'correct', '!border-[#E61739]' : codeState === 'wrong',}")
     div(class="absolute -bottom-[11px] flex items-center w-full h-6 text-center bg-transparent")
       div(class="relative -left-[1px] flex flex-grow h-1 rounded-bl-[2px] border-b border-l bg-transparent" :class="{'border-[#4EAD69]' : codeState === 'correct', 'border-[#E61739]' : codeState === 'wrong',}")
-      h2(v-if="codeState === 'correct' || codeState === 'wrong'" class="font-medium px-[9px]")
+      h2(v-if="codeState === 'correct' || codeState === 'wrong'" class="font-medium z-10 px-[9px]")
         span(v-if="codeState === 'correct'" class="text-[#4EAD69]") Круто! Это правильный код
         span(v-if="codeState === 'wrong'" class="text-[#E61739]") Где-то была ошибка
       div(class="relative -right-[1px] flex flex-grow h-1 rounded-br-[2px] border-b border-r bg-transparent" :class="{'border-[#4EAD69]' : codeState === 'correct', 'border-[#E61739]' : codeState === 'wrong',}")
