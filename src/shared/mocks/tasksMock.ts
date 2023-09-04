@@ -4,56 +4,56 @@ export const TASKS_MOCK: TaskType[] = [
   {
     id: 1,
     initial_code: `export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
-  if (!SLOT_FOR_CODE_BLOCK) {
-    return '0';
-  }
+if (!SLOT_FOR_CODE_BLOCK) {
+  return '0';
+}
 
-  totalSeconds = Math.floor(totalSeconds);
-  if (totalSeconds < 0) {
-    totalSeconds = 0;
-  }
+totalSeconds = Math.floor(totalSeconds);
+if (totalSeconds < 0) {
+  totalSeconds = 0;
+}
 
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = SLOT_FOR_CODE_BLOCK;
+const hours = Math.floor(totalSeconds / 3600);
+totalSeconds %= 3600;
+const minutes = Math.floor(totalSeconds / 60);
+const seconds = SLOT_FOR_CODE_BLOCK;
 
-  const durationParts: string[] = [];
-  if (hours > 0) {
-    durationParts.push(SLOT_FOR_CODE_BLOCK);
-  }
-  if (hours > 0 || minutes > 0) {
-    durationParts.push(SLOT_FOR_CODE_BLOCK);
-  }
+const durationParts: string[] = [];
+if (hours > 0) {
   durationParts.push(SLOT_FOR_CODE_BLOCK);
+}
+if (hours > 0 || minutes > 0) {
+  durationParts.push(SLOT_FOR_CODE_BLOCK);
+}
+durationParts.push(SLOT_FOR_CODE_BLOCK);
 
-  SLOT_FOR_CODE_BLOCK SLOT_FOR_CODE_BLOCK;
+SLOT_FOR_CODE_BLOCK SLOT_FOR_CODE_BLOCK;
 };`,
     correct_code: `export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
-  if (!first code) {
-    return '0';
-  }
+if (!first code) {
+  return '0';
+}
 
-  totalSeconds = Math.floor(totalSeconds);
-  if (totalSeconds < 0) {
-    totalSeconds = 0;
-  }
+totalSeconds = Math.floor(totalSeconds);
+if (totalSeconds < 0) {
+  totalSeconds = 0;
+}
 
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = second code;
+const hours = Math.floor(totalSeconds / 3600);
+totalSeconds %= 3600;
+const minutes = Math.floor(totalSeconds / 60);
+const seconds = second code;
 
-  const durationParts: string[] = [];
-  if (hours > 0) {
-    durationParts.push(third code);
-  }
-  if (hours > 0 || minutes > 0) {
-    durationParts.push(Math.floor(totalSeconds / 3600));
-  }
-  durationParts.push(hours > 0 || minutes > 0);
+const durationParts: string[] = [];
+if (hours > 0) {
+  durationParts.push(third code);
+}
+if (hours > 0 || minutes > 0) {
+  durationParts.push(Math.floor(totalSeconds / 3600));
+}
+durationParts.push(hours > 0 || minutes > 0);
 
-  return durationParts.join(\' \');
+return durationParts.join(\' \');
 };`,
     blocks_to_select: ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0', 'return', 'durationParts.join(\' \')'],
   },
