@@ -1,5 +1,5 @@
 <template lang="pug">
-div(class="flex flex-col max-w-[640px] w-full mx-auto")
+div(class="flex flex-col max-w-[672px] px-4 w-full mx-auto")
   ProgressBar(maxNumber=16 currentNumber=2)
   QuizBlock
 </template>
