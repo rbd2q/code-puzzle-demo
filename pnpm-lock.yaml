@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@geeckocom/activity-ui': ^0.0.56
   '@nuxt/devtools': latest
   '@pinia/nuxt': ^0.4.11
   '@types/node': ^18.17.3
@@ -14,6 +15,7 @@ specifiers:
   tailwindcss: ^3.3.3
 
 dependencies:
+  '@geeckocom/activity-ui': 0.0.56
   '@pinia/nuxt': 0.4.11
   highlight.js: 11.8.0
   monaco-editor: 0.39.0
@@ -747,6 +749,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@geeckocom/activity-ui/0.0.56:
+    resolution: {integrity: sha1-yjnOo2btReTSBoHAvHkmCleKGfo=, tarball: '@geeckocom/activity-ui/-/@geeckocom/activity-ui-0.0.56.tgz'}
+    peerDependencies:
+      vue: ^3.2.25
+    dev: false
 
   /@hapi/hoek/9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}

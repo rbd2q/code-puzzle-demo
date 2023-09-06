@@ -4,9 +4,10 @@ export default defineNuxtConfig({
   modules: [
     "@pinia/nuxt",
   ],
-  css: ['~/assets/styles/main.css'],
+  css: ['~/assets/styles/main.css', '@geeckocom/activity-ui/dist/style.css'],
   postcss: {
     plugins: {
+      'tailwindcss/nesting': {},
       tailwindcss: {},
       autoprefixer: {},
     },
