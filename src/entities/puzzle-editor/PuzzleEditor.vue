@@ -27,7 +27,7 @@ div(class="h-2/3 relative rounded-[2px] border border-b-0 border-[#F3F4F6]" :cla
       div(v-for="line in updatedCodeArray" key="line.lineNumber" class="flex items-center mb-1")
         span(class="w-[20px] mx-4") {{ line.lineNumber }}
         pre(class="flex items-start")
-          code(v-html="line.lineCode" class="line-code ")
+          code(v-html="line.lineCode" class="line-code")
 </template>
 
 <script setup lang="ts">

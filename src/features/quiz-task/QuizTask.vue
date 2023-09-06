@@ -1,5 +1,6 @@
 <style scoped>
 .quiz-block {
+  @apply flex flex-col max-w-[672px] px-4 w-full mx-auto;
   :deep(.g-quiz) {
     --text-color: #000000;
     --answer-bg: #ffffff;
@@ -30,7 +31,7 @@
         content: "";
         @apply absolute left-4 top-[18px] bg-transparent w-[18px] h-[18px] border-[2px] border-[#CACED9] rounded-full;
       }
-      
+
       &.picked {
         @apply border-[#BE0238];
         &::after {
@@ -83,48 +84,37 @@ div(class="quiz-block")
 
 <script setup lang="ts">
 import { GQuizLight } from "@geeckocom/activity-ui";
+import type { Task } from "~/src/shared/types";
+import { tasksModel } from "~/src/entities/store/tasks";
+
+interface Props {
+  currentTask: Task;
+}
+
+const props = withDefaults(defineProps<Props>(), {});
+
+const emit = defineEmits<{
+  (event: "next-task"): void;
+}>();
+
+const storeTasks = tasksModel.useTasksStore();
+
 const showRegistrationScreen = ref(false);
 const showQuizScreen = ref(true);
 
-const questionBeforeAnswer = {
-  id: 1,
-  text: "WireShark - это",
-  answers: [
-    {
-      id: 1,
-      text: "Программа-брандмауер",
-    },
-    {
-      id: 2,
-      text: "Программа автоматического обнаружения атак",
-    },
-    {
-      id: 3,
-      text: "Программа для анализа безопасности удаленного устройства",
-    },
-    {
-      id: 4,
-      text: "Анализатор трафика в сетях",
-    },
-  ],
-  clarification_text: null,
-  clarification_image: null,
-  is_correct: null,
-  correct_answer_id: null,
-};
+const currentQuestion = ref(props.currentTask);
 
-const currentQuestion = ref(questionBeforeAnswer);
 const nextQuestion = () => {
   showQuizScreen.value = false;
   showRegistrationScreen.value = true;
+  emit('next-task')
 };
 
-const answerQuestion = (answerId) => {
-  const correctAnswerId = 4;
-  currentQuestion.value = {
-    ...currentQuestion.value,
-    is_correct: answerId === correctAnswerId,
-    correct_answer_id: correctAnswerId,
-  };
+const answerQuestion = async (answerId: number) => {
+  await storeTasks.checkQuizTask(currentQuestion.value.id, answerId)
 };
+
+watch(() => props.currentTask, () => {
+  currentQuestion.value = props.currentTask
+});
 </script>

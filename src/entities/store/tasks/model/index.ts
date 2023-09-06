@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
-import {TASKS_MOCK} from "~/src/shared/mocks/tasksMock";
-import {TaskType} from "~/src/shared/types";
+import { TASKS_MOCK } from "~/src/shared/mocks/tasksMock";
+import type { Task } from "~/src/shared/types";
 
 export interface NetworkEntitiesCommon {
   loading: boolean;
@@ -13,7 +13,7 @@ export interface NetworkEntity<T> extends NetworkEntitiesCommon {
 }
 
 interface RootState {
-  tasks: NetworkEntity<TaskType[]>;
+  tasks: NetworkEntity<Task[]>;
 }
 
 export const useTasksStore = defineStore("tasks", {
@@ -40,6 +40,30 @@ export const useTasksStore = defineStore("tasks", {
           this.tasks.item = data;
         }
         this.tasks.success = true;
+      } catch (e: any) {
+        this.tasks.error = true;
+        this.tasks.success = false;
+      } finally {
+        this.tasks.loading = false;
+      }
+    },
+    async checkQuizTask(taskId: number, answerId: number) {
+      const correctAnswerId = 4;
+
+      this.tasks.loading = true;
+      this.tasks.error = null;
+      this.tasks.success = false;
+      const currentQuestionIndex = this.tasks.item?.findIndex((task) => task.id === taskId);
+
+      try {
+        if (typeof currentQuestionIndex === 'number' && this.tasks.item) {
+          this.tasks.item[currentQuestionIndex] = {
+            ...this.tasks.item[currentQuestionIndex],
+            is_correct: answerId === correctAnswerId,
+            correct_answer_id: correctAnswerId,
+          };
+          this.tasks.success = true;
+        }
       } catch (e: any) {
         this.tasks.error = true;
         this.tasks.success = false;

@@ -1,10 +1,11 @@
 import {CodeState, SplitCode} from "~/src/shared/types";
 import hljs from "highlight.js/lib/core";
 
-export const usePuzzle = ({initialCode, correctCode}: {
-  initialCode: string;
-  correctCode: string;
+export const usePuzzle = ({ initialCode = '', correctCode = '' }: {
+  initialCode?: string;
+  correctCode?: string;
 }) => {
+
   const activeSlotId = ref();
   const slotsArray = ref<Element[]>([]);
   const usedCodeBlocks = ref<Record<number, string | null>>({});

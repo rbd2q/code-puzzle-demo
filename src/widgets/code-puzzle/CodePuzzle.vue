@@ -8,11 +8,11 @@ div(class="w-screen h-screen")
 import 'highlight.js/styles/atom-one-light.css';
 import PuzzleEditor from "~/src/entities/puzzle-editor/PuzzleEditor.vue";
 import PuzzleSelectBlock from "~/src/entities/puzzle-select-block/PuzzleSelectBlock.vue";
-import type { TaskType } from "~/src/shared/types";
+import type { Task } from "~/src/shared/types";
 import { usePuzzle } from "~/src/widgets/code-puzzle/model";
 
 interface Props {
-  currentTask: TaskType;
+  currentTask: Task;
 }
 
 const props = withDefaults(defineProps<Props>(), {});

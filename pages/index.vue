@@ -1,13 +1,15 @@
 <template lang="pug">
-CodePuzzle(v-if="currentTask" :key="currentTask.id" :current-task="currentTask" @next-task="handleNextTask")
+CodePuzzle(v-if="currentTask && currentTask.type === 'code-puzzle'" :key="currentTask.id" :current-task="currentTask" @next-task="handleNextTask")
+QuizTask(v-if="currentTask && currentTask.type === 'quiz'" :key="currentTask.id" :current-task="currentTask" @next-task="handleNextTask")
 </template>
 
 <script setup lang="ts">
 import CodePuzzle from "~/src/widgets/code-puzzle/CodePuzzle.vue";
-import { tasksModel } from "~/src/entities/store/tasks/"
+import { tasksModel } from "~/src/entities/store/tasks";
+import QuizTask from "~/src/features/quiz-task/QuizTask.vue";
 
 const storeTasks = tasksModel.useTasksStore();
-const currentTaskIndex = ref(0)
+const currentTaskIndex = ref(0);
 
 const tasks = computed(() => {
   return storeTasks.tasks.item;
@@ -28,6 +30,6 @@ const handleNextTask = () => {
 }
 
 onMounted(() => {
-  storeTasks.getTasks()
+  storeTasks.getTasks();
 })
 </script>

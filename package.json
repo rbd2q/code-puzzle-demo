@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@geeckocom/activity-ui": "^0.0.56",
+    "@geeckocom/activity-ui": "^0.0.53",
     "@pinia/nuxt": "^0.4.11",
     "highlight.js": "^11.8.0",
     "monaco-editor": "^0.39.0",

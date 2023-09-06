@@ -1,8 +1,81 @@
-import type { TaskType } from "~/src/shared/types";
+import type { Task } from "~/src/shared/types";
 
-export const TASKS_MOCK: TaskType[] = [
+export const TASKS_MOCK: Task[] = [
   {
     id: 1,
+    type: 'quiz',
+    text: "WireShark - это",
+    answers: [
+      {
+        id: 1,
+        text: "Программа-брандмауер",
+      },
+      {
+        id: 2,
+        text: "Программа автоматического обнаружения атак",
+      },
+      {
+        id: 3,
+        text: "Программа для анализа безопасности удаленного устройства",
+      },
+      {
+        id: 4,
+        text: "Анализатор трафика в сетях",
+      },
+    ],
+    clarification_text: null,
+    clarification_image: null,
+    is_correct: null,
+    correct_answer_id: null,
+  },
+  {
+    id: 2,
+    type: 'quiz',
+    text: "На каком языке написан код?",
+    code: `
+  \`\`\`javascript
+  setup(props) {
+    const shareUrlLink = (platform: String) => {
+      const url = props.shareUrl || window.location.href
+      switch (platform) {
+        case 'tw':
+          return TW_BASE_SHARE_LINK + url
+        case 'vk':
+          return VK_BASE_SHARE_LINK + url
+        case 'fb':
+          return FB_BASE_SHARE_LINK + url
+      }
+    }
+    return { shareUrlLink }
+  },
+  \`\`\`
+  `,
+    answers: [
+      {
+        id: 1,
+        text: "Python",
+      },
+      {
+        id: 2,
+        text: "C++",
+      },
+      {
+        id: 3,
+        text: "JavaScript",
+      },
+      {
+        id: 4,
+        text: "Английский",
+      },
+    ],
+    clarification_text: null,
+    clarification_image: null,
+    is_correct: null,
+    correct_answer_id: null,
+  },
+  {
+    id: 3,
+    type: 'code-puzzle',
     initial_code: `export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
 if (!SLOT_FOR_CODE_BLOCK) {
   return '0';
@@ -58,7 +131,8 @@ return durationParts.join(\' \');
     blocks_to_select: ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0', 'return', 'durationParts.join(\' \')'],
   },
   {
-    id: 2,
+    id: 4,
+    type: 'code-puzzle',
     initial_code: `/**
  * Implement function getResult
  */
