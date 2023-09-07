@@ -9,12 +9,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@geeckocom/activity-ui": "^0.0.58",
+    "@geeckocom/activity-ui": "^0.0.64",
     "@pinia/nuxt": "^0.4.11",
     "highlight.js": "^11.8.0",
     "monaco-editor": "^0.39.0",
     "pinia": "^2.1.6",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "sass": "^1.66.1"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",

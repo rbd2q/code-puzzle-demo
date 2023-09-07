@@ -33,7 +33,6 @@ export const TASKS_MOCK: Task[] = [
     type: 'quiz',
     text: "На каком языке написан код?",
     code: `
-  \`\`\`javascript
   setup(props) {
     const shareUrlLink = (platform: String) => {
       const url = props.shareUrl || window.location.href
@@ -47,9 +46,7 @@ export const TASKS_MOCK: Task[] = [
       }
     }
     return { shareUrlLink }
-  },
-  \`\`\`
-  `,
+  },`,
     answers: [
       {
         id: 1,

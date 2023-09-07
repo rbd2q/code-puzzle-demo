@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="scss">
 .quiz-block {
   @apply flex flex-col max-w-[672px] px-4 w-full mx-auto;
   :deep(.g-quiz) {
@@ -21,8 +21,12 @@
       }
     }
 
+    & .g-quiz__code-block  {
+      @apply bg-[#F3F4F6] p-2 rounded-md mb-4;
+    }
+
     & .g-quiz__answers-title {
-      @apply mb-4 text-[16px] leading-5 !text-black font-sans font-medium opacity-100;
+      @apply mb-4 text-[16px] leading-5 text-black font-sans font-medium opacity-100;
     }
     & .g-quiz__answer-item {
       @apply relative border-[2px] border-[#CACED9] rounded mt-2 first-of-type:mt-0 p-4 pl-[42px] text-[16px] leading-5 text-black font-medium font-sans text-left;
@@ -77,7 +81,6 @@ div(class="quiz-block")
       button(
         class="action-button"
         :disabled="disabled",
-        :use-ym-track="false"
         @click="onclick"
       ) {{ text }}
 </template>
