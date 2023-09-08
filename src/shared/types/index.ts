@@ -2,7 +2,8 @@ export type TaskTypeEnum = 'quiz' | 'code-puzzle'
 
 export type QuizTaskAnswer = {
   id: number,
-  text: string
+  text?: string
+  img?: string
 }
 
 export type Task = {
@@ -10,6 +11,7 @@ export type Task = {
   type: TaskTypeEnum,
   text?: string,
   code?: string,
+  img?: string,
   answers?: QuizTaskAnswer[]
   clarification_text?: string | null,
   clarification_image?: string | null,

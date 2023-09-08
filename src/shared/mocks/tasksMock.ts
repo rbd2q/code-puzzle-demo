@@ -4,6 +4,34 @@ export const TASKS_MOCK: Task[] = [
   {
     id: 1,
     type: 'quiz',
+    text: "Какой котик самый милый?",
+    img: "https://oir.mobi/uploads/posts/2022-09/1662134055_1-oir-mobi-p-mnogo-kotikov-pinterest-2.jpg",
+    answers: [
+      {
+        id: 1,
+        img: "https://bipbap.ru/wp-content/uploads/2021/11/1619541010_52-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-57.jpg"
+      },
+      {
+        id: 2,
+        img: "https://bipbap.ru/wp-content/uploads/2021/11/1619541014_19-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-21.jpg"
+      },
+      {
+        id: 3,
+        img: "https://coolsen.ru/wp-content/uploads/2021/01/img_600d4719563e3.jpg"
+      },
+      {
+        id: 4,
+        img: "https://bipbap.ru/wp-content/uploads/2021/11/1583662531_38.jpg"
+      },
+    ],
+    clarification_text: null,
+    clarification_image: null,
+    is_correct: null,
+    correct_answer_id: null,
+  },
+  {
+    id: 2,
+    type: 'quiz',
     text: "WireShark - это",
     answers: [
       {
@@ -29,7 +57,7 @@ export const TASKS_MOCK: Task[] = [
     correct_answer_id: null,
   },
   {
-    id: 2,
+    id: 3,
     type: 'quiz',
     text: "На каком языке написан код?",
     code: `
@@ -71,7 +99,7 @@ export const TASKS_MOCK: Task[] = [
     correct_answer_id: null,
   },
   {
-    id: 3,
+    id: 4,
     type: 'code-puzzle',
     initial_code: `export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
 if (!SLOT_FOR_CODE_BLOCK) {
@@ -128,7 +156,7 @@ return durationParts.join(\' \');
     blocks_to_select: ['first code', 'second code', 'third code', 'Math.floor(totalSeconds / 3600)', 'hours > 0 || minutes > 0', 'return', 'durationParts.join(\' \')'],
   },
   {
-    id: 4,
+    id: 5,
     type: 'code-puzzle',
     initial_code: `/**
  * Implement function getResult
