@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@geeckocom/activity-ui':
-    specifier: ^0.0.64
-    version: 0.0.64(vue@3.3.4)
+    specifier: ^0.0.65
+    version: 0.0.65(vue@3.3.4)
   '@pinia/nuxt':
     specifier: ^0.4.11
     version: 0.4.11(vue@3.3.4)
@@ -767,8 +767,8 @@ packages:
     dev: true
     optional: true
 
-  /@geeckocom/activity-ui@0.0.64(vue@3.3.4):
-    resolution: {integrity: sha1-3AxZvf9POCuaedM5BL5WMT/dGoM=, tarball: https://gitlab.com/api/v4/projects/42758637/packages/npm/@geeckocom/activity-ui/-/@geeckocom/activity-ui-0.0.64.tgz}
+  /@geeckocom/activity-ui@0.0.65(vue@3.3.4):
+    resolution: {integrity: sha1-KMKyiNqGnw2b1OwQ3j92+DWboMc=, tarball: https://gitlab.com/api/v4/projects/42758637/packages/npm/@geeckocom/activity-ui/-/@geeckocom/activity-ui-0.0.65.tgz}
     peerDependencies:
       vue: ^3.2.25
     dependencies:

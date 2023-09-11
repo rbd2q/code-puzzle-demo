@@ -69,7 +69,8 @@
 div(class="quiz-block")
   GQuizLight(
     v-show="showQuizScreen",
-    :question="currentQuestion"
+    :question="currentQuestion",
+    :hide-answer="true"
     text-pick-answer-title
     confirm-text="Проверить"
     next-text="Продолжить"
