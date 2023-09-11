@@ -59,4 +59,3 @@ pnpm run preview
 # yarn
 yarn preview
 ```
-.
