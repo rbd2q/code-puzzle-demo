@@ -44,6 +44,16 @@ export const usePuzzle = ({ initialCode = '', correctCode = '' }: {
   };
 
   const clickPuzzle = (puzzleContent: string) => {
+    if (!activeSlotId.value) {
+      const slots = document.getElementsByClassName('puzzle-slot');
+      slotsArray.value = [...slots];
+
+      slotsArray.value.map((slot, index) => {
+        if (!slot.innerHTML && !activeSlotId.value) {
+          activeSlotId.value = `puzzle-slot-${index + 1}`;
+        }
+      })
+    }
     const button = document.getElementById(activeSlotId.value);
 
     if (button) {
