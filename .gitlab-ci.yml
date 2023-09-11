@@ -12,7 +12,8 @@ cache:
 pages:
   script:
     - npx nuxi generate
-    - npx serve .output/public
+    - rm -rf ./public
+    - mv ./.output/public ./public
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
