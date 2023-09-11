@@ -3,5 +3,4 @@ import 'highlight.js/styles/vs.css'
 
 export default defineNuxtPlugin(() => {
   const tsLangOptions = hljs.getLanguage("ts")!;
-  console.log("--tsLangOptions", tsLangOptions);
 });
