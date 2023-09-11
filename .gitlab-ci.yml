@@ -11,7 +11,7 @@ cache:
 
 pages:
   script:
-    - pnpm run generate
+    - npx nuxi generate
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
