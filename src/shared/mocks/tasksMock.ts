@@ -2,103 +2,6 @@ import type { Task } from "~/src/shared/types";
 
 export const TASKS_MOCK: Task[] = [
   {
-    id: 1,
-    type: 'quiz',
-    text: "Какой котик самый милый?",
-    img: "https://oir.mobi/uploads/posts/2022-09/1662134055_1-oir-mobi-p-mnogo-kotikov-pinterest-2.jpg",
-    answers: [
-      {
-        id: 1,
-        img: "https://bipbap.ru/wp-content/uploads/2021/11/1619541010_52-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-57.jpg"
-      },
-      {
-        id: 2,
-        img: "https://bipbap.ru/wp-content/uploads/2021/11/1619541014_19-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-21.jpg"
-      },
-      {
-        id: 3,
-        img: "https://coolsen.ru/wp-content/uploads/2021/01/img_600d4719563e3.jpg"
-      },
-      {
-        id: 4,
-        img: "https://bipbap.ru/wp-content/uploads/2021/11/1583662531_38.jpg"
-      },
-    ],
-    clarification_text: null,
-    clarification_image: null,
-    is_correct: null,
-    correct_answer_id: null,
-  },
-  {
-    id: 2,
-    type: 'quiz',
-    text: "WireShark - это",
-    answers: [
-      {
-        id: 1,
-        text: "Программа-брандмауер",
-      },
-      {
-        id: 2,
-        text: "Программа автоматического обнаружения атак",
-      },
-      {
-        id: 3,
-        text: "Программа для анализа безопасности удаленного устройства",
-      },
-      {
-        id: 4,
-        text: "Анализатор трафика в сетях",
-      },
-    ],
-    clarification_text: null,
-    clarification_image: null,
-    is_correct: null,
-    correct_answer_id: null,
-  },
-  {
-    id: 3,
-    type: 'quiz',
-    text: "На каком языке написан код?",
-    code: `
-  setup(props) {
-    const shareUrlLink = (platform: String) => {
-      const url = props.shareUrl || window.location.href
-      switch (platform) {
-        case 'tw':
-          return TW_BASE_SHARE_LINK + url
-        case 'vk':
-          return VK_BASE_SHARE_LINK + url
-        case 'fb':
-          return FB_BASE_SHARE_LINK + url
-      }
-    }
-    return { shareUrlLink }
-  },`,
-    answers: [
-      {
-        id: 1,
-        text: "Python",
-      },
-      {
-        id: 2,
-        text: "C++",
-      },
-      {
-        id: 3,
-        text: "JavaScript",
-      },
-      {
-        id: 4,
-        text: "Английский",
-      },
-    ],
-    clarification_text: null,
-    clarification_image: null,
-    is_correct: null,
-    correct_answer_id: null,
-  },
-  {
     id: 4,
     type: 'code-puzzle',
     initial_code: `export const formatDurationWithLabels = (totalSeconds: number | undefined): string => {
@@ -261,5 +164,102 @@ function getResult(expr) {
   return results;
 }`,
     blocks_to_select: ['leftResults', 'rightResults']
+  },
+  {
+    id: 1,
+    type: 'quiz',
+    text: "Какой котик самый милый?",
+    img: "https://oir.mobi/uploads/posts/2022-09/1662134055_1-oir-mobi-p-mnogo-kotikov-pinterest-2.jpg",
+    answers: [
+      {
+        id: 1,
+        img: "https://bipbap.ru/wp-content/uploads/2021/11/1619541010_52-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-57.jpg"
+      },
+      {
+        id: 2,
+        img: "https://bipbap.ru/wp-content/uploads/2021/11/1619541014_19-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-21.jpg"
+      },
+      {
+        id: 3,
+        img: "https://coolsen.ru/wp-content/uploads/2021/01/img_600d4719563e3.jpg"
+      },
+      {
+        id: 4,
+        img: "https://bipbap.ru/wp-content/uploads/2021/11/1583662531_38.jpg"
+      },
+    ],
+    clarification_text: null,
+    clarification_image: null,
+    is_correct: null,
+    correct_answer_id: null,
+  },
+  {
+    id: 2,
+    type: 'quiz',
+    text: "WireShark - это",
+    answers: [
+      {
+        id: 1,
+        text: "Программа-брандмауер",
+      },
+      {
+        id: 2,
+        text: "Программа автоматического обнаружения атак",
+      },
+      {
+        id: 3,
+        text: "Программа для анализа безопасности удаленного устройства",
+      },
+      {
+        id: 4,
+        text: "Анализатор трафика в сетях",
+      },
+    ],
+    clarification_text: null,
+    clarification_image: null,
+    is_correct: null,
+    correct_answer_id: null,
+  },
+  {
+    id: 3,
+    type: 'quiz',
+    text: "На каком языке написан код?",
+    code: `
+  setup(props) {
+    const shareUrlLink = (platform: String) => {
+      const url = props.shareUrl || window.location.href
+      switch (platform) {
+        case 'tw':
+          return TW_BASE_SHARE_LINK + url
+        case 'vk':
+          return VK_BASE_SHARE_LINK + url
+        case 'fb':
+          return FB_BASE_SHARE_LINK + url
+      }
+    }
+    return { shareUrlLink }
+  },`,
+    answers: [
+      {
+        id: 1,
+        text: "Python",
+      },
+      {
+        id: 2,
+        text: "C++",
+      },
+      {
+        id: 3,
+        text: "JavaScript",
+      },
+      {
+        id: 4,
+        text: "Английский",
+      },
+    ],
+    clarification_text: null,
+    clarification_image: null,
+    is_correct: null,
+    correct_answer_id: null,
   }
 ]
