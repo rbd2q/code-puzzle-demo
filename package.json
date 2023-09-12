@@ -1,7 +1,6 @@
 {
   "name": "nuxt-app",
   "private": true,
-  "homepage": "https://ivansuveev.gitlab.io/code-puzzle-demo/",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

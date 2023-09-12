@@ -7,13 +7,12 @@ QuizTask(v-if="currentTask && currentTask.type === 'quiz'" :key="currentTask.id"
 import CodePuzzle from "~/src/widgets/code-puzzle/CodePuzzle.vue";
 import { tasksModel } from "~/src/entities/store/tasks";
 import QuizTask from "~/src/features/quiz-task/QuizTask.vue";
-import { TASKS_MOCK } from "~/src/shared/mocks/tasksMock";
 
 const storeTasks = tasksModel.useTasksStore();
 const currentTaskIndex = ref(0);
 
 const tasks = computed(() => {
-  return TASKS_MOCK;
+  return storeTasks.tasks.item;
 });
 
 const currentTask = computed(() => {
